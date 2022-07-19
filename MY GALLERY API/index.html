@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+</head>
+<div class="main-but">
+    <div class="butt">
+        <button id="getAnimals"">FETCH ANIMAL</button>
+        <button id="getArts"">FETCH ART</button>
+        <button id="getDevice"">FETCH DEVICE</button>
+    </div>
+</div>
+
+<div class="aaa">
+    <div id="output">
+
+    </div>
+</div>
+<body>
+    <script>
+        document.getElementById("getAnimals").addEventListener('click', getAnimals);
+        document.getElementById("getArts").addEventListener('click', getArts);
+        document.getElementById("getDevice").addEventListener('click', getDevice);
+
+        function getAnimals(){
+
+            fetch('API.json')
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                let output = "";
+                data[0].map(function(API) {
+                    fetched = `
+                    <div id="card">
+                        <img id="img" src="${API.img_animal}">
+                        <h1 id="list">${API.title.animal}</h1>
+                        <p>image details</p>
+                        <ul>
+                            <li>Dimention: <span>${API.properties.dimensions}</span></li>
+                            <li>Size: <span>${API.properties.size}</span></li>
+                        </ul>
+                        <center><a href="${API.img_animal}" download><button>Download</button></a></center>
+                    </div>
+                    
+                    `
+                    output+=fetched
+                });
+                document.getElementById('output').innerHTML = output
+            })
+        }
+
+        function getArts(){
+
+            fetch('API.json')
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                let output = ' ';
+                data[1].forEach(function(API) {
+                    output += `
+                    <div id="card">
+                        <img id="img" src="${API.img_art}">
+                        <h1 id="list">${API.title.art}</h1>
+                        <p>image details</p>
+                            <ul>
+                                <li>Dimention: <span>${API.properties.dimensions}</span></li>
+                                <li>Size: <span>${API.properties.size}</span></li>
+                            </ul>
+                            <center><a href="${API.img_art}" download><button>Download</button></a></center>
+                    </div>
+                    `
+                });
+                document.getElementById('output').innerHTML = output
+            })
+        }
+
+        function getDevice(){
+            fetch('API.json')
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                let output = ' ';
+                data[2].forEach(function(API) {
+                    output += `
+                    <div id="card">
+                        <img id="img" src="${API.img_device}">
+                        <h1 id="list">${API.title.device}</h1>
+                        <p>image details</p>
+                            <ul>
+                                <li>Dimention: <span>${API.properties.dimensions}</span></li>
+                                <li>Size: <span>${API.properties.size}</span></li>
+                            </ul>
+                            <center><a href="${API.img_device}" download><button>Download</button></a></center>
+                    </div>
+                    
+                    
+                    `
+                });
+                document.getElementById('output').innerHTML = output
+            })
+        }
+    </script>
+</body>
+</html>
